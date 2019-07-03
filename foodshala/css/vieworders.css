@@ -1,0 +1,17 @@
+.container {
+	width: 70%;
+	margin: 0 auto;
+}
+.wrapper {
+	width: 50%;
+	margin: 0 auto;
+}
+.list-group a{
+	height: auto;
+}
+.list-group a div {
+	display: inline-block;
+}
+.list-group a .details{
+	float: right;
+}

@@ -1,0 +1,65 @@
+CREATE DATABASE foodshalaDB;
+
+CREATE TABLE Customer (
+    Custid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    CustName VARCHAR(20) NOT NULL,
+    CustEmail VARCHAR(30) UNIQUE NOT NULL,
+    CustPsw VARCHAR(10) NOT NULL,
+    CustMobile BIGINT(12) NOT NULL,
+    CustTaste VARCHAR(10) NOT NULL,
+    CustAddress VARCHAR(30) NOT NULL,
+    CustCity VARCHAR(20) NOT NULL,
+    RegDate TIMESTAMP
+);
+
+
+
+CREATE TABLE Restaurant (
+    REstid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    RestTitle VARCHAR(20) NOT NULL,
+    RestOwner VARCHAR(20) NOT NULL,
+    RestEmail VARCHAR(30) UNIQUE NOT NULL,
+    RestPsw VARCHAR(10) NOT NULL,
+    RestAddress VARCHAR(50) NOT NULL,
+    RestCity VARCHAR(20) NOT NULL,
+    RegDate TIMESTAMP
+);
+
+
+
+CREATE TABLE fooditems(
+    Foodid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    FoodName VARCHAR(20) NOT NULL,
+    FoodType VARCHAR(15) NOT NULL,
+    FoodPrice INT(7) NOT NULL,
+    FoodImg VARCHAR(30) NOT NULL,
+    Restid int(6) not null,
+    ADD INDEX (`Restid`)
+);
+
+
+
+CREATE TABLE orders (
+    Orderid int(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    OrderFoodName VARCHAR(20) NOT NULL,
+    OrderPrice INT(6) NOT NULL,
+    OrderRest VARCHAR(20) NOT NULL,
+    OrderCustName varchar(20) NOT NULL,
+    OrderEmail VARCHAR(30) NOT NULL,
+    Custid_fk INT NOT NULL UNSIGNED,
+    Foodid_fk int(6) NOT NULL UNSIGNED,
+    Restid_fk int(6) NOT NULL UNSIGNED,
+    ADD INDEX (`Custid_fk`),
+    ADD INDEX (`Foodid_fk`),
+    ADD INDEX (`Restid_fk`)
+    
+);
+
+    
+
+
+
+ALTER TABLE `orders` ADD FOREIGN KEY (`Custid_fk`) REFERENCES `customer`(`Custid`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `orders` ADD FOREIGN KEY (`Restid_fk`) REFERENCES `restaurant`(`Restid`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `orders` ADD FOREIGN KEY (`Foodid_fk`) REFERENCES `fooditems`(`Foodid`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `fooditems` ADD FOREIGN KEY (`Restid`) REFERENCES `restaurant`(`Restid`) ON DELETE RESTRICT ON UPDATE RESTRICT;
